@@ -5,7 +5,7 @@
 # script description:    for ubuntu system update
 # creater:               R2TURUK2
 # create datetime:       2024.03.04 15:42:11
-# permissons:			 chmod +x sysUpdate.sh
+# permissons:		 chmod +x sysUpdate.sh
 #script----------------------------------------------------------------------------------------
 
 # Initialize variables with default values
