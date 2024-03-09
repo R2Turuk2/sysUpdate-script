@@ -112,10 +112,10 @@ fi
 #-------------------------------------------------------------------------------------------------------------------------------------------
 if [ "$1" == "-h" ]; then
     echo "----------------------------------------------------------------"
-    echo "-> Your operating system is $distribution $release."
-	echo "----------------------------------------------------------------"
-	echo "#    Your operating system is $systemCompatible. This script is compatible with Ubuntu, Debian, CentOS, Elementary OS, Fedora, Kali Linux, Mageia, Mint, openSUSE, RHEL."
-    echo "->   -h | --help              for help"
+    echo "->   Your operating system is $distribution $release."
+	echo "     Your operating system is $systemCompatible. This script is compatible with Ubuntu, Debian, CentOS, Elementary OS, Fedora, Kali Linux, Mageia, Mint, openSUSE, RHEL."
+    echo "----------------------------------------------------------------"
+	echo "->   -h | --help              for help"
    #echo "--- essential parameters ----------------------------------------------------------------------"
     echo "--- optional parameter ------------------------------------------------------------------------"
     echo "->   -r | --reboot            restart after completing the updates"
