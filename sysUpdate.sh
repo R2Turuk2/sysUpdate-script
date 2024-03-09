@@ -400,7 +400,22 @@ case $distribution_lowercase in
 
 # Instructions to end the script
 #-------------------------------------------------------------------------------------------------------------------------------------------
-$shellExit && exit 						# Check for shell exit
-$shellClear && clear 					# Clear the terminal if the condition is true
-$sysReboot && sudo reboot 				# Reboot the system if the condition is true
-$sysShutdown && sudo shutdown -h now 	# Shutdown the system if the condition is true
+# Check for shell exit condition
+if $shellExit; then
+    exit  # Exit the script if the condition is true
+fi
+
+# Check for terminal clear condition
+if $shellClear; then
+    clear  # Clear the terminal if the condition is true
+fi
+
+# Check for system reboot condition
+if $sysReboot; then
+    sudo reboot  # Reboot the system if the condition is true
+fi
+
+# Check for system shutdown condition
+if $sysShutdown; then
+    sudo shutdown -h now  # Shutdown the system if the condition is true
+fi
