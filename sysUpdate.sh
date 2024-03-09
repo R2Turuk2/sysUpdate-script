@@ -154,8 +154,8 @@ while [[ $# -gt 0 ]]; do
             shellClear=true
             ;;
         -e|--exit)
-            shellExit=true
-            ;;
+			shellExit=true
+			;;
         *)
             ;;
     esac
@@ -378,7 +378,7 @@ esac
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # Check for shell exit condition
 if $shellExit; then
-    exit  # Exit the script if the condition is true
+    command exit  # Exit the script if the condition is true
 fi
 
 # Check for terminal clear condition
