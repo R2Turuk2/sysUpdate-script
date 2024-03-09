@@ -135,3 +135,29 @@ if [ "$1" == "-h" ]; then
     
     exit 102
 fi
+
+# setting parameters in the desired order
+#-------------------------------------------------------------------------------------------------------------------------------------------
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --system-upgrade)
+            sysUpgrade=true
+            ;;
+        -r|--reboot)
+            sysReboot=true
+            ;;
+        -s|--shutdown)
+            sysShutdown=true
+            ;;
+        -c|--clear)
+            shellClear=true
+            ;;
+        -e|--exit)
+            shellExit=true
+            ;;
+        *)
+            ;;
+    esac
+
+	shift # switch to the next arguments
+done
