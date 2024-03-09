@@ -31,12 +31,31 @@ if [ "$os" == "Linux" ]; then
 	case $distribution_lowercase in
 		ubuntu)
 			systemCompatible="compatible"
+			break
 			;;
 		debian)
 			systemCompatible="compatible"
+			break
+			;;
+		fedora)
+			systemCompatible="compatible"
+			break
+			;;
+		opensuse)
+			systemCompatible="compatible"
+			break
+			;;
+		centos)
+			systemCompatible="compatible"
+			break
+			;;
+		kali)
+			systemCompatible="compatible"
+			break
 			;;
 		*)
 			systemCompatible="incompatible"
+			exit 100
 			;;
 	esac # end of compatible check between OS and script
 	
@@ -45,7 +64,7 @@ if [ "$os" == "Linux" ]; then
 		echo "Your operating system is $distribution $release."
 	else
 		echo "Your Linux distribution could not be identified."
-		exit 100
+		exit 101
 	fi
 	echo "----------------------------------------------------------------"
 else
@@ -58,16 +77,27 @@ fi # end of identify the operating system
 # Help options
 #-------------------------------------------------------------------------------------------------------------------------------------------
 if [ "$1" == "-h" ]; then
-    # Use only for system upgrade (for example, from 20.04 LTS to 22.04 LTS)
-    echo "->   -h | --help              for help"
-	echo "#    This script is compatible for Ubuntu, Debian. Your operating system is $systemCompatible."
+    echo "#    This script is compatible for Ubuntu, Debian, CentOS, Elementary OS, Fedora, Kali Linux, Mageia, Mint, openSUSE, RHEL."
+	echo "#    Your operating system is $systemCompatible."
+	echo "->   -h | --help              for help"
    #echo "--- essential parameters ----------------------------------------------------------------------"
 	echo "--- optional parameter ------------------------------------------------------------------------"
-    echo "->        --system-upgrade    for system upgrade | use only for system upgrade (for example, from 20.04 LTS to 22.04 LTS)"
-	echo "->   -r | --reboot            restart after completing the updates"
+    	echo "->   -r | --reboot            restart after completing the updates"
     echo "->   -s | --shutdown          shutdown after completing the updates"
 	echo "->   -c | --clear				clean the termianl after completing the update"
-	exit 101
+	
+	# for distribution specific information
+	case $distribution_lowercase in
+		ubuntu)
+			echo "->        --system-upgrade    only for ubuntu system upgrade | use only for system upgrade (for example, from 20.04 LTS to 22.04 LTS)"
+			break
+			;;
+		*)
+			break
+			;;
+	esac # end of compatible check between OS and script
+	
+	exit 102
 fi
 
 
@@ -109,13 +139,13 @@ Start update script
 
 case $distribution_lowercase in
 	
-	#for Ubuntu, Debian, Mint
+	#for Ubuntu, Mint
 	#-------------------------------------------------------------------------------------------------------------------------------------------
-	ubuntu|debian)
+	ubuntu)
 		echo "----------------------------------------------------------------"
 		echo "-> The package list is now being updated."
 		echo "----------------------------------------------------------------"
-		sudo apt update
+		sudo apt update # Updates the package list from all defined package sources.
 		
 		if [ "$sysUpgrade" = true ]; then
 			read -p "-> Was a backup made? If yes, continue? [Y/n] " sysUpgradeContinue
@@ -123,7 +153,7 @@ case $distribution_lowercase in
 				echo "----------------------------------------------------------------"
 				echo "-> Your system is now being upgraded!"
 				echo "----------------------------------------------------------------"
-				sudo do-release-upgrade
+				sudo do-release-upgrade # Initiates the upgrade process to a new Ubuntu release if available.
 			else
 				exit 201
 			fi
@@ -132,32 +162,156 @@ case $distribution_lowercase in
 		echo "----------------------------------------------------------------"
 		echo "-> All packages are now being updated"
 		echo "----------------------------------------------------------------"
-		sudo apt upgrade -y
+		sudo apt upgrade -y # Upgrades all installed packages to the latest versions.
 		
 		echo "----------------------------------------------------------------"
 		echo "-> System packages and dependencies are now being updated"
 		echo "----------------------------------------------------------------"
-		sudo apt dist-upgrade -y
+		sudo apt dist-upgrade -y # Upgrades the system, including system packages and dependencies.
 	
 		echo "----------------------------------------------------------------"
 		echo "-> Unnecessary dependencies are now being removed"
 		echo "----------------------------------------------------------------"
-		sudo apt autoremove -y
+		sudo apt autoremove -y # Removes unnecessary dependencies and no longer needed packages.
 
 		
 		echo "----------------------------------------------------------------"
 		echo "-> Snap packages have been updated"
 		echo "----------------------------------------------------------------"
-		sudo snap refresh -y
+		sudo snap refresh -y # Updates Snap packages, if installed.
 
 		echo "----------------------------------------------------------------"
 		echo "-> Your system should now be up to date."
 		echo "----------------------------------------------------------------"
 		
-		;; # instruction to end script
+		;; # end
 	#-------------------------------------------------------------------------------------------------------------------------------------------
 	
+	#for Debian
+	#-------------------------------------------------------------------------------------------------------------------------------------------	
+	debian)
+		echo "----------------------------------------------------------------"
+		echo "-> The package list is now being updated."
+		echo "----------------------------------------------------------------"
+		sudo apt update # Updates the package list from all defined package sources.
+		
+		echo "----------------------------------------------------------------"
+		echo "-> All packages are now being updated"
+		echo "----------------------------------------------------------------"
+		sudo apt upgrade -y # Upgrades all installed packages to the latest versions.
+		
+		echo "----------------------------------------------------------------"
+		echo "-> System packages and dependencies are now being updated"
+		echo "----------------------------------------------------------------"
+		sudo apt dist-upgrade -y # Upgrades the system, including system packages and dependencies.
 	
+		echo "----------------------------------------------------------------"
+		echo "-> Unnecessary dependencies are now being removed"
+		echo "----------------------------------------------------------------"
+		sudo apt autoremove -y # Removes unnecessary dependencies and no longer needed packages.
+
+		
+		echo "----------------------------------------------------------------"
+		echo "-> Snap packages have been updated"
+		echo "----------------------------------------------------------------"
+		sudo snap refresh -y # Updates Snap packages, if installed.
+
+		echo "----------------------------------------------------------------"
+		echo "-> Your system should now be up to date."
+		echo "----------------------------------------------------------------"
+		
+		;; # end
+	#-------------------------------------------------------------------------------------------------------------------------------------------
+	
+	#for Fedora
+	#-------------------------------------------------------------------------------------------------------------------------------------------	
+	fedora)
+		echo "----------------------------------------------------------------"
+		echo "-> The package list is now being updated."
+		echo "----------------------------------------------------------------"
+		sudo sudo dnf check-update # Check for available updates
+		
+		echo "----------------------------------------------------------------"
+		echo "-> All packages are now being updated"
+		echo "----------------------------------------------------------------"
+		sudo sudo dnf upgrade -y # Upgrade all installed packages
+	
+		echo "----------------------------------------------------------------"
+		echo "-> Unnecessary dependencies are now being removed"
+		echo "----------------------------------------------------------------"
+		sudo dnf autoremove -y # Removes unnecessary dependencies and no longer needed packages.
+
+		echo "----------------------------------------------------------------"
+		echo "-> Your system should now be up to date."
+		echo "----------------------------------------------------------------"
+		
+		;; # end
+	#-------------------------------------------------------------------------------------------------------------------------------------------
+	
+	#for openSUSE
+	#-------------------------------------------------------------------------------------------------------------------------------------------	
+	opensuse)
+		echo "----------------------------------------------------------------"
+		echo "-> The package list is now being updated."
+		echo "----------------------------------------------------------------"
+		sudo zypper refresh # Updates the package list from all defined package sources.
+		
+		echo "----------------------------------------------------------------"
+		echo "-> All packages are now being updated"
+		echo "----------------------------------------------------------------"
+		sudo sudo zypper update -y # Upgrades all installed packages to the latest versions.
+
+		echo "----------------------------------------------------------------"
+		echo "-> Your system should now be up to date."
+		echo "----------------------------------------------------------------"
+		
+		;; # end
+	#-------------------------------------------------------------------------------------------------------------------------------------------
+	
+	#for CentOS, Red Hat Enterprise Linux (RHEL) / Mageia
+	#-------------------------------------------------------------------------------------------------------------------------------------------	
+	centos)
+		echo "----------------------------------------------------------------"
+		echo "-> The package list is now being updated."
+		echo "----------------------------------------------------------------"
+		sudo yum check-update # Updates the package list from all defined package sources.
+		
+		echo "----------------------------------------------------------------"
+		echo "-> All packages are now being updated"
+		echo "----------------------------------------------------------------"
+		sudo yum upgrade -y # Upgrades all installed packages to the latest versions.
+	
+		echo "----------------------------------------------------------------"
+		echo "-> Unnecessary dependencies are now being removed"
+		echo "----------------------------------------------------------------"
+		sudo yum autoremove -y # Removes unnecessary dependencies and no longer needed packages.
+
+		echo "----------------------------------------------------------------"
+		echo "-> Your system should now be up to date."
+		echo "----------------------------------------------------------------"
+		
+		;; # end
+	#-------------------------------------------------------------------------------------------------------------------------------------------
+	
+	#for Kali Linux
+	#-------------------------------------------------------------------------------------------------------------------------------------------	
+	kali)
+		echo "----------------------------------------------------------------"
+		echo "-> The package list is now being updated."
+		echo "----------------------------------------------------------------"
+		sudo apt update # Updates the package list from all defined package sources.
+		
+		echo "----------------------------------------------------------------"
+		echo "-> All packages are now being updated"
+		echo "----------------------------------------------------------------"
+		sudo apt full-upgrade -y # Upgrades all installed packages to the latest versions.
+		
+		echo "----------------------------------------------------------------"
+		echo "-> Your system should now be up to date."
+		echo "----------------------------------------------------------------"
+		
+		;; # end
+	#-------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
