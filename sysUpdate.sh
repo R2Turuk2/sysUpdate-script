@@ -2,11 +2,44 @@
 #header----------------------------------------------------------------------------------------
 # scriptname:            sysUpdate
 # scriptversion:         v2.0.0
-# script description:    for Linux system update
-# creator:               Timon Bachmann
-# creator (sysuser):     timon
-# create datetime:       2024.03.04 15:42:11
+# creator:               R2TURUK2
+# create datetime:       2024.03.09 17:00:00
 # permissions:           chmod +x sysUpdate.sh
+
+# script description:    This Bash script is designed to simplify the process of updating
+#						 Linux systems. It supports various distributions, including Ubuntu,
+#						 Debian, Fedora, openSUSE, CentOS, Kali Linux, and more. The script
+#						 automatically checks compatibility with the operating system and 
+#						 then performs the necessary update steps.
+
+# features:				 System Detection: The script automatically recognizes the operating
+#										   system and its version.
+
+#						 Package Update:   It updates the package list and then carries out
+#										   various update steps, including package upgrades,
+#										   system upgrades, and the removal of unnecessary
+#										   dependencies.
+
+#						 Snap Package Update:   The script also updates Snap packages, if
+#												installed.
+
+#						 User-Friendly Options: The script provides optional parameters such
+#												as reboot, shutdown, and clearing the
+#												terminal after completing updates.
+
+#						 Support for Ubuntu..	If desired, the script allows
+#						 System Upgrades:	 	upgrading to a new version of Ubuntu.
+
+# usage:				 Run the script with ./sysUpdate.sh.
+# optional parameters:	 -h or --help		for help and available options.
+#						 -r or --reboot		for a reboot after completing updates.
+#						 -s or --shutdown	for a shutdown after completing updates.
+#						 -c or --clear		for clearing the terminal after completing updates.
+#						 --system-upgrade	only for Ubuntu system upgrades (e.g. from 20.04 LTS to 22.04 LTS).
+
+# note:					 This script requires the availability of the 'lsb_release' command for
+#						 operating system detection and may require additional packages depending
+#						 on the distribution.
 #script----------------------------------------------------------------------------------------
 
 # Initialize global variables with default values
