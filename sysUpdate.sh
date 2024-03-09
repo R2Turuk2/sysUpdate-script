@@ -49,6 +49,15 @@ sysShutdown=false
 sysReboot=false
 shellClear=false
 
+# Check if the "snap" command is available in the system's PATH
+#-------------------------------------------------------------------------------------------------------------------------------------------
+if command -v snap &> /dev/null; then
+	snapInstall=true
+else
+	snapInstall=false
+fi
+
+
 # Check if lsb_release is available
 #-------------------------------------------------------------------------------------------------------------------------------------------
 if ! command -v lsb_release &> /dev/null; then
@@ -221,11 +230,12 @@ case $distribution_lowercase in
         echo "----------------------------------------------------------------"
         sudo apt autoremove -y # Removes unnecessary dependencies and no longer needed packages.
 
-        
-        echo "----------------------------------------------------------------"
-        echo "-> Snap packages have been updated"
-        echo "----------------------------------------------------------------"
-        sudo snap refresh -y # Updates Snap packages, if installed.
+        if $snapInstall; then 
+			echo "----------------------------------------------------------------"
+			echo "-> Snap packages have been updated"
+			echo "----------------------------------------------------------------"
+			sudo snap refresh -y # Updates Snap packages, if installed.
+		fi
 
         echo "----------------------------------------------------------------"
         echo "-> Your system should now be up to date."
@@ -257,11 +267,12 @@ case $distribution_lowercase in
         echo "----------------------------------------------------------------"
         sudo apt autoremove -y # Removes unnecessary dependencies and no longer needed packages.
 
-        
-        echo "----------------------------------------------------------------"
-        echo "-> Snap packages have been updated"
-        echo "----------------------------------------------------------------"
-        sudo snap refresh -y # Updates Snap packages, if installed.
+        if $snapInstall; then 
+			echo "----------------------------------------------------------------"
+			echo "-> Snap packages have been updated"
+			echo "----------------------------------------------------------------"
+			sudo snap refresh -y # Updates Snap packages, if installed.
+		fi
 
         echo "----------------------------------------------------------------"
         echo "-> Your system should now be up to date."
@@ -287,8 +298,15 @@ case $distribution_lowercase in
         echo "-> Unnecessary dependencies are now being removed"
         echo "----------------------------------------------------------------"
         sudo dnf autoremove -y # Removes unnecessary dependencies and no longer needed packages.
-
-        echo "----------------------------------------------------------------"
+        
+		if $snapInstall; then 
+			echo "----------------------------------------------------------------"
+			echo "-> Snap packages have been updated"
+			echo "----------------------------------------------------------------"
+			sudo snap refresh -y # Updates Snap packages, if installed.
+		fi
+        
+		echo "----------------------------------------------------------------"
         echo "-> Your system should now be up to date."
         echo "----------------------------------------------------------------"
         
@@ -308,6 +326,13 @@ case $distribution_lowercase in
         echo "----------------------------------------------------------------"
         sudo sudo zypper update -y # Upgrades all installed packages to the latest versions.
 
+        if $snapInstall; then 
+			echo "----------------------------------------------------------------"
+			echo "-> Snap packages have been updated"
+			echo "----------------------------------------------------------------"
+			sudo snap refresh -y # Updates Snap packages, if installed.
+		fi
+		
         echo "----------------------------------------------------------------"
         echo "-> Your system should now be up to date."
         echo "----------------------------------------------------------------"
@@ -333,6 +358,13 @@ case $distribution_lowercase in
         echo "----------------------------------------------------------------"
         sudo yum autoremove -y # Removes unnecessary dependencies and no longer needed packages.
 
+        if $snapInstall; then 
+			echo "----------------------------------------------------------------"
+			echo "-> Snap packages have been updated"
+			echo "----------------------------------------------------------------"
+			sudo snap refresh -y # Updates Snap packages, if installed.
+		fi
+		
         echo "----------------------------------------------------------------"
         echo "-> Your system should now be up to date."
         echo "----------------------------------------------------------------"
@@ -353,6 +385,13 @@ case $distribution_lowercase in
         echo "----------------------------------------------------------------"
         sudo apt full-upgrade -y # Upgrades all installed packages to the latest versions.
         
+		if $snapInstall; then 
+			echo "----------------------------------------------------------------"
+			echo "-> Snap packages have been updated"
+			echo "----------------------------------------------------------------"
+			sudo snap refresh -y # Updates Snap packages, if installed.
+		fi
+		
         echo "----------------------------------------------------------------"
         echo "-> Your system should now be up to date."
         echo "----------------------------------------------------------------"
