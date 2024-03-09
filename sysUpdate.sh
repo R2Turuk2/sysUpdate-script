@@ -98,30 +98,6 @@ set_parameters() {
 }
 
 
-#set_parameters() {
-#    for arg in "$@"; do
-#        case "$arg" in
-#            -h|--help)
-#                help=true
-#                ;;
-#            --system-upgrade)
-#                sysUpgrade=true
-#                ;;
-#			-r|--reboot)
-#				sysReboot=true
-#				;;
-#			-s|--shutdown)
-#				sysShutdown=true
-#				;;
-#			-c|--clear)
-#				shellClear=true
-#				;;
-#           *)
-#              exit 100
-#              ;;
-#        esac
-#    done
-#}
 
 # Pass all parameters to the function
 #-------------------------------------------------------------------------------------------------------------------------------------------
