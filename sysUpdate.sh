@@ -19,6 +19,31 @@ sysReboot=false
 shellClear=false
 
 
+# Check if lsb_release is available
+#-------------------------------------------------------------------------------------------------------------------------------------------
+if ! command -v lsb_release &> /dev/null; then
+    echo "The command 'lsb_release' is not available on this system. Please install the package to proceed."
+
+    # Check the distribution and suggest manual installation commands
+    if command -v apt &> /dev/null; then
+        echo "Try installing 'lsb-release' with the following command:"
+        echo "  sudo apt install lsb-release"
+    elif command -v yum &> /dev/null; then
+        echo "Try installing 'lsb-release' with the following command:"
+        echo "  sudo yum install redhat-lsb-core"
+    elif command -v dnf &> /dev/null; then
+        echo "Try installing 'lsb-release' with the following command:"
+        echo "  sudo dnf install redhat-lsb-core"
+    elif command -v zypper &> /dev/null; then
+        echo "Try installing 'lsb-release' with the following command:"
+        echo "  sudo zypper install lsb-release"
+    else
+        echo "Unable to determine the package manager for automatic installation."
+        echo "Please manually install 'lsb-release' using the appropriate package manager for your system."
+    fi
+
+    exit 1
+fi
 
 # identify the operating system
 #-------------------------------------------------------------------------------------------------------------------------------------------
