@@ -105,6 +105,7 @@ esac  # end of compatibility check between OS and script
     
 # Display the operating system in the terminal or interrupt the script
 if [ -n "$distribution" ] && [ -n "$release" ]; then
+	echo "----------------------------------------------------------------"
     echo "-> Your operating system is $distribution $release."
 	echo "----------------------------------------------------------------"
 else
@@ -161,3 +162,236 @@ while [[ $# -gt 0 ]]; do
 
 	shift # switch to the next arguments
 done
+
+# Start update script
+#-------------------------------------------------------------------------------------------------------------------------------------------
+case $distribution_lowercase in
+    
+    # for Ubuntu, Mint
+    #-------------------------------------------------------------------------------------------------------------------------------------------
+    ubuntu)
+        echo "----------------------------------------------------------------"
+        echo "-> The package list is now being updated."
+        echo "----------------------------------------------------------------"
+        sudo apt update # Updates the package list from all defined package sources.
+        
+        if [ "$sysUpgrade" = true ]; then
+            read -p "-> Was a backup made? If yes, continue? [Y/n] " sysUpgradeContinue
+            if [ "$sysUpgradeContinue" = "Y" ] || [ "$sysUpgradeContinue" = "y" ]; then  
+                echo "----------------------------------------------------------------"
+                echo "-> Your system is now being upgraded!"
+                echo "----------------------------------------------------------------"
+                sudo do-release-upgrade # Initiates the upgrade process to a new Ubuntu release if available.
+            else
+                exit 201
+            fi
+        fi
+
+        echo "----------------------------------------------------------------"
+        echo "-> All packages are now being updated"
+        echo "----------------------------------------------------------------"
+        sudo apt upgrade -y # Upgrades all installed packages to the latest versions.
+        
+        echo "----------------------------------------------------------------"
+        echo "-> System packages and dependencies are now being updated"
+        echo "----------------------------------------------------------------"
+        sudo apt dist-upgrade -y # Upgrades the system, including system packages and dependencies.
+    
+        echo "----------------------------------------------------------------"
+        echo "-> Unnecessary dependencies are now being removed"
+        echo "----------------------------------------------------------------"
+        sudo apt autoremove -y # Removes unnecessary dependencies and no longer needed packages.
+
+        if $snapInstall; then 
+			echo "----------------------------------------------------------------"
+			echo "-> Snap packages have been updated"
+			echo "----------------------------------------------------------------"
+			sudo snap refresh # Updates Snap packages, if installed.
+		fi
+
+        echo "----------------------------------------------------------------"
+        echo "-> Your system should now be up to date."
+        echo "----------------------------------------------------------------"
+        
+        ;; # end
+    #-------------------------------------------------------------------------------------------------------------------------------------------
+    
+    # for Debian
+    #-------------------------------------------------------------------------------------------------------------------------------------------    
+    debian)
+        echo "----------------------------------------------------------------"
+        echo "-> The package list is now being updated."
+        echo "----------------------------------------------------------------"
+        sudo apt update # Updates the package list from all defined package sources.
+        
+        echo "----------------------------------------------------------------"
+        echo "-> All packages are now being updated"
+        echo "----------------------------------------------------------------"
+        sudo apt upgrade -y # Upgrades all installed packages to the latest versions.
+        
+        echo "----------------------------------------------------------------"
+        echo "-> System packages and dependencies are now being updated"
+        echo "----------------------------------------------------------------"
+        sudo apt dist-upgrade -y # Upgrades the system, including system packages and dependencies.
+    
+        echo "----------------------------------------------------------------"
+        echo "-> Unnecessary dependencies are now being removed"
+        echo "----------------------------------------------------------------"
+        sudo apt autoremove -y # Removes unnecessary dependencies and no longer needed packages.
+
+        if $snapInstall; then 
+			echo "----------------------------------------------------------------"
+			echo "-> Snap packages have been updated"
+			echo "----------------------------------------------------------------"
+			sudo snap refresh # Updates Snap packages, if installed.
+		fi
+
+        echo "----------------------------------------------------------------"
+        echo "-> Your system should now be up to date."
+        echo "----------------------------------------------------------------"
+        
+        ;; # end
+    #-------------------------------------------------------------------------------------------------------------------------------------------
+    
+    # for Fedora
+    #-------------------------------------------------------------------------------------------------------------------------------------------    
+    fedora)
+        echo "----------------------------------------------------------------"
+        echo "-> The package list is now being updated."
+        echo "----------------------------------------------------------------"
+        sudo sudo dnf check-update # Check for available updates
+        
+        echo "----------------------------------------------------------------"
+        echo "-> All packages are now being updated"
+        echo "----------------------------------------------------------------"
+        sudo sudo dnf upgrade -y # Upgrade all installed packages
+    
+        echo "----------------------------------------------------------------"
+        echo "-> Unnecessary dependencies are now being removed"
+        echo "----------------------------------------------------------------"
+        sudo dnf autoremove -y # Removes unnecessary dependencies and no longer needed packages.
+        
+		if $snapInstall; then 
+			echo "----------------------------------------------------------------"
+			echo "-> Snap packages have been updated"
+			echo "----------------------------------------------------------------"
+			sudo snap refresh # Updates Snap packages, if installed.
+		fi
+        
+		echo "----------------------------------------------------------------"
+        echo "-> Your system should now be up to date."
+        echo "----------------------------------------------------------------"
+        
+        ;; # end
+    #-------------------------------------------------------------------------------------------------------------------------------------------
+    
+    # for openSUSE
+    #-------------------------------------------------------------------------------------------------------------------------------------------    
+    opensuse)
+        echo "----------------------------------------------------------------"
+        echo "-> The package list is now being updated."
+        echo "----------------------------------------------------------------"
+        sudo zypper refresh # Updates the package list from all defined package sources.
+        
+        echo "----------------------------------------------------------------"
+        echo "-> All packages are now being updated"
+        echo "----------------------------------------------------------------"
+        sudo sudo zypper update -y # Upgrades all installed packages to the latest versions.
+
+        if $snapInstall; then 
+			echo "----------------------------------------------------------------"
+			echo "-> Snap packages have been updated"
+			echo "----------------------------------------------------------------"
+			sudo snap refresh # Updates Snap packages, if installed.
+		fi
+		
+        echo "----------------------------------------------------------------"
+        echo "-> Your system should now be up to date."
+        echo "----------------------------------------------------------------"
+        
+        ;; # end
+    #-------------------------------------------------------------------------------------------------------------------------------------------
+    
+    # for CentOS, Red Hat Enterprise Linux (RHEL) / Mageia
+    #-------------------------------------------------------------------------------------------------------------------------------------------    
+    centos)
+        echo "----------------------------------------------------------------"
+        echo "-> The package list is now being updated."
+        echo "----------------------------------------------------------------"
+        sudo yum check-update # Updates the package list from all defined package sources.
+        
+        echo "----------------------------------------------------------------"
+        echo "-> All packages are now being updated"
+        echo "----------------------------------------------------------------"
+        sudo yum upgrade -y # Upgrades all installed packages to the latest versions.
+    
+        echo "----------------------------------------------------------------"
+        echo "-> Unnecessary dependencies are now being removed"
+        echo "----------------------------------------------------------------"
+        sudo yum autoremove -y # Removes unnecessary dependencies and no longer needed packages.
+
+        if $snapInstall; then 
+			echo "----------------------------------------------------------------"
+			echo "-> Snap packages have been updated"
+			echo "----------------------------------------------------------------"
+			sudo snap refresh # Updates Snap packages, if installed.
+		fi
+		
+        echo "----------------------------------------------------------------"
+        echo "-> Your system should now be up to date."
+        echo "----------------------------------------------------------------"
+        
+        ;; # end
+    #-------------------------------------------------------------------------------------------------------------------------------------------
+    
+    # for Kali Linux
+    #-------------------------------------------------------------------------------------------------------------------------------------------    
+    kali)
+        echo "----------------------------------------------------------------"
+        echo "-> The package list is now being updated."
+        echo "----------------------------------------------------------------"
+        sudo apt update # Updates the package list from all defined package sources.
+        
+        echo "----------------------------------------------------------------"
+        echo "-> All packages are now being updated"
+        echo "----------------------------------------------------------------"
+        sudo apt full-upgrade -y # Upgrades all installed packages to the latest versions.
+        
+		if $snapInstall; then 
+			echo "----------------------------------------------------------------"
+			echo "-> Snap packages have been updated"
+			echo "----------------------------------------------------------------"
+			sudo snap refresh # Updates Snap packages, if installed.
+		fi
+		
+        echo "----------------------------------------------------------------"
+        echo "-> Your system should now be up to date."
+        echo "----------------------------------------------------------------"
+        
+        ;; # end
+    #-------------------------------------------------------------------------------------------------------------------------------------------
+	*)
+		;;
+esac
+
+# Instructions to end the script
+#-------------------------------------------------------------------------------------------------------------------------------------------
+# Check for shell exit condition
+if $shellExit; then
+    exit  # Exit the script if the condition is true
+fi
+
+# Check for terminal clear condition
+if $shellClear; then
+    clear  # Clear the terminal if the condition is true
+fi
+
+# Check for system reboot condition
+if $sysReboot; then
+    sudo reboot  # Reboot the system if the condition is true
+fi
+
+# Check for system shutdown condition
+if $sysShutdown; then
+    sudo shutdown -h now  # Shutdown the system if the condition is true
+fi
