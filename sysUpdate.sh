@@ -113,12 +113,13 @@ fi
 if [ "$1" == "-h" ]; then
     echo "----------------------------------------------------------------"
     echo "->   Your operating system is $distribution $release."
-	echo "     Your operating system is $systemCompatible. This script is compatible with Ubuntu, Debian, CentOS, Elementary OS, Fedora, Kali Linux, Mageia, Mint, openSUSE, RHEL."
+	echo "     Your operating system is $systemCompatible. This script is compatible with"
+	echo "     Ubuntu, Debian, CentOS, Elementary OS, Fedora, Kali Linux, Mageia, Mint, openSUSE, RHEL."
     echo "----------------------------------------------------------------"
-	echo "->   -h | --help              for help"
-   #echo "--- essential parameters ----------------------------------------------------------------------"
+	#echo "--- essential parameters ----------------------------------------------------------------------"
     echo "--- optional parameter ------------------------------------------------------------------------"
-    echo "->   -r | --reboot            restart after completing the updates"
+    echo "->   -h | --help              for help"
+	echo "->   -r | --reboot            restart after completing the updates"
     echo "->   -s | --shutdown          shutdown after completing the updates"
     echo "->   -c | --clear             clean the terminal after completing the update"
     
@@ -199,7 +200,7 @@ case $distribution_lowercase in
 
         if $snapInstall; then 
 			echo "----------------------------------------------------------------"
-			echo "-> Snap packages have been updated"
+			echo "-> Snap packages are now being updated"
 			echo "----------------------------------------------------------------"
 			sudo snap refresh # Updates Snap packages, if installed.
 		fi
@@ -236,7 +237,7 @@ case $distribution_lowercase in
 
         if $snapInstall; then 
 			echo "----------------------------------------------------------------"
-			echo "-> Snap packages have been updated"
+			echo "-> Snap packages are now being updated"
 			echo "----------------------------------------------------------------"
 			sudo snap refresh # Updates Snap packages, if installed.
 		fi
@@ -268,7 +269,7 @@ case $distribution_lowercase in
         
 		if $snapInstall; then 
 			echo "----------------------------------------------------------------"
-			echo "-> Snap packages have been updated"
+			echo "-> Snap packages are now being updated"
 			echo "----------------------------------------------------------------"
 			sudo snap refresh # Updates Snap packages, if installed.
 		fi
@@ -295,7 +296,7 @@ case $distribution_lowercase in
 
         if $snapInstall; then 
 			echo "----------------------------------------------------------------"
-			echo "-> Snap packages have been updated"
+			echo "-> Snap packages are now being updated"
 			echo "----------------------------------------------------------------"
 			sudo snap refresh # Updates Snap packages, if installed.
 		fi
@@ -327,7 +328,7 @@ case $distribution_lowercase in
 
         if $snapInstall; then 
 			echo "----------------------------------------------------------------"
-			echo "-> Snap packages have been updated"
+			echo "-> Snap packages are now being updated"
 			echo "----------------------------------------------------------------"
 			sudo snap refresh # Updates Snap packages, if installed.
 		fi
@@ -354,7 +355,7 @@ case $distribution_lowercase in
         
 		if $snapInstall; then 
 			echo "----------------------------------------------------------------"
-			echo "-> Snap packages have been updated"
+			echo "-> Snap packages are now being updated"
 			echo "----------------------------------------------------------------"
 			sudo snap refresh # Updates Snap packages, if installed.
 		fi
