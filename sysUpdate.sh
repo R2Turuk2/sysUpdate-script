@@ -51,15 +51,6 @@ sysReboot=false
 shellClear=false
 shellExit=false
 
-# Check if the "snap" command is available in the system's PATH
-#-------------------------------------------------------------------------------------------------------------------------------------------
-if command -v snap &> /dev/null; then
-	snapInstall=true
-else
-	snapInstall=false
-fi
-
-
 # Check if lsb_release is available
 #-------------------------------------------------------------------------------------------------------------------------------------------
 if ! command -v lsb_release &> /dev/null; then
@@ -86,57 +77,60 @@ if ! command -v lsb_release &> /dev/null; then
     exit 1
 fi
 
+# Check if the "snap" command is available in the system's PATH
+#-------------------------------------------------------------------------------------------------------------------------------------------
+if command -v snap &> /dev/null; then
+	snapInstall=true
+else
+	snapInstall=false
+fi
+
 # Identify the operating system
 #-------------------------------------------------------------------------------------------------------------------------------------------
-if [ "$os" == "Linux" ]; then
-    distribution=$(lsb_release -si 2>/dev/null)
-    release=$(lsb_release -sr 2>/dev/null)
+distribution=$(lsb_release -si 2>/dev/null)
+release=$(lsb_release -sr 2>/dev/null)
     
-    # Check compatibility between OS and script
-    distribution_lowercase=$(echo "$distribution" | tr '[:upper:]' '[:lower:]')
-    case $distribution_lowercase in
-        ubuntu)
-            systemCompatible="compatible"
-            break
-            ;;
-        debian)
-            systemCompatible="compatible"
-            break
-            ;;
-        fedora)
-            systemCompatible="compatible"
-            break
-            ;;
-        opensuse)
-            systemCompatible="compatible"
-            break
-            ;;
-        centos)
-            systemCompatible="compatible"
-            break
-            ;;
-        kali)
-            systemCompatible="compatible"
-            break
-            ;;
-        *)
-            systemCompatible="incompatible"
-            exit 100
-            ;;
-    esac # end of compatibility check between OS and script
+# Check compatibility between OS and script
+distribution_lowercase=$(echo "$distribution" | tr '[:upper:]' '[:lower:]')
+case $distribution_lowercase in
+    ubuntu)
+        systemCompatible="compatible"
+        break
+        ;;
+    debian)
+        systemCompatible="compatible"
+        break
+        ;;
+    fedora)
+        systemCompatible="compatible"
+        break
+        ;;
+    opensuse)
+        systemCompatible="compatible"
+        break
+        ;;
+    centos)
+        systemCompatible="compatible"
+        break
+        ;;
+    kali)
+        systemCompatible="compatible"
+        break
+        ;;
+    *)
+        systemCompatible="incompatible"
+        exit 100
+        ;;
+esac # end of compatibility check between OS and script
     
-    # Display the operating system in the terminal or interrupt the script
-    if [ -n "$distribution" ] && [ -n "$release" ]; then
-        echo "Your operating system is $distribution $release."
-    else
-        echo "Your Linux distribution could not be identified."
-        exit 101
-    fi
-    echo "----------------------------------------------------------------"
+# Display the operating system in the terminal or interrupt the script
+if [ -n "$distribution" ] && [ -n "$release" ]; then
+    echo "Your operating system is $distribution $release."
+	echo "----------------------------------------------------------------"
 else
-    echo "This script is not available for your operating system: $os."
-    exit
-fi # end of identify the operating system
+    echo "Your Linux distribution could not be identified."
+    exit 101
+fi
 
 # Help options
 #-------------------------------------------------------------------------------------------------------------------------------------------
