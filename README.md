@@ -17,7 +17,6 @@ Optional parameters:
 - `-r` or `--reboot`: 	Restart after completing updates.
 - `-s` or `--shutdown`: Shutdown after completing updates.
 - `-c` or `--clear`: 	Clear the terminal after completing the update.
-- `-e` or `--exit`: 	close the terminal after completing the updates.
 - `--system-upgrade`: 	Only for Ubuntu system upgrades (e.g., from 20.04 LTS to 22.04 LTS).
 
 ## Note

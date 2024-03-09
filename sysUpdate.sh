@@ -35,7 +35,6 @@
 #						 -r or --reboot		for a reboot after completing the updates.
 #						 -s or --shutdown	for a shutdown after completing the updates.
 #						 -c or --clear		for clearing the terminal after completing the updates.
-#						 -e or --exit		for close the terminal after completing the updates.
 #						 --system-upgrade	only for Ubuntu system upgrades (e.g. from 20.04 LTS to 22.04 LTS).
 
 # note:					 This script requires the availability of the 'lsb_release' command for
@@ -123,7 +122,6 @@ if [ "$1" == "-h" ]; then
     echo "->   -r | --reboot            restart after completing the updates"
     echo "->   -s | --shutdown          shutdown after completing the updates"
     echo "->   -c | --clear             clean the terminal after completing the update"
-	echo "->   -e | --exit				for close the terminal after completing updates."
     
     # for distribution-specific information
     case $distribution_lowercase in
@@ -152,9 +150,6 @@ while [[ $# -gt 0 ]]; do
             ;;
         -c|--clear)
             shellClear=true
-            ;;
-        -e|--exit)
-			shellExit=true
 			;;
         *)
             ;;
@@ -376,11 +371,6 @@ esac
 
 # Instructions to end the script
 #-------------------------------------------------------------------------------------------------------------------------------------------
-# Check for shell exit condition
-if $shellExit; then
-    command exit  # Exit the script if the condition is true
-fi
-
 # Check for terminal clear condition
 if $shellClear; then
     clear  # Clear the terminal if the condition is true
