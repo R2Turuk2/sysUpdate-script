@@ -32,9 +32,10 @@
 
 # usage:				 Run the script with ./sysUpdate.sh.
 # optional parameters:	 -h or --help		for help and available options.
-#						 -r or --reboot		for a reboot after completing updates.
-#						 -s or --shutdown	for a shutdown after completing updates.
-#						 -c or --clear		for clearing the terminal after completing updates.
+#						 -r or --reboot		for a reboot after completing the updates.
+#						 -s or --shutdown	for a shutdown after completing the updates.
+#						 -c or --clear		for clearing the terminal after completing the updates.
+#						 -e or --exit		for close the terminal after completing the updates.
 #						 --system-upgrade	only for Ubuntu system upgrades (e.g. from 20.04 LTS to 22.04 LTS).
 
 # note:					 This script requires the availability of the 'lsb_release' command for
@@ -48,6 +49,7 @@ sysUpgrade=false
 sysShutdown=false
 sysReboot=false
 shellClear=false
+shellExit=false
 
 # Check if the "snap" command is available in the system's PATH
 #-------------------------------------------------------------------------------------------------------------------------------------------
@@ -142,11 +144,12 @@ if [ "$1" == "-h" ]; then
     echo "#    This script is compatible with Ubuntu, Debian, CentOS, Elementary OS, Fedora, Kali Linux, Mageia, Mint, openSUSE, RHEL."
     echo "#    Your operating system is $systemCompatible."
     echo "->   -h | --help              for help"
-    #echo "--- essential parameters ----------------------------------------------------------------------"
+   #echo "--- essential parameters ----------------------------------------------------------------------"
     echo "--- optional parameter ------------------------------------------------------------------------"
-        echo "->   -r | --reboot            restart after completing the updates"
+    echo "->   -r | --reboot            restart after completing the updates"
     echo "->   -s | --shutdown          shutdown after completing the updates"
     echo "->   -c | --clear             clean the terminal after completing the update"
+	echo "->   -e | --exit				for close the terminal after completing updates."
     
     # for distribution-specific information
     case $distribution_lowercase in
@@ -180,6 +183,8 @@ set_parameters() {
             -c|--clear)
                 shellClear=true
                 ;;
+			-e|--exit)
+				shellExit=true
             *)
                 exit 200
                 ;;
@@ -401,12 +406,7 @@ case $distribution_lowercase in
 
 # Instructions to end the script
 #-------------------------------------------------------------------------------------------------------------------------------------------
-if [ "$shellClear" = true ]; then
-    clear
-fi
-if [ "$sysReboot" = true ]; then
-    sudo reboot
-fi
-if [ "$sysShutdown" = true ]; then
-    sudo shutdown -h now
-fi
+$shellExit && exit 						# Check for shell exit
+$shellClear && clear 					# Clear the terminal if the condition is true
+$sysReboot && sudo reboot 				# Reboot the system if the condition is true
+$sysShutdown && sudo shutdown -h now 	# Shutdown the system if the condition is true

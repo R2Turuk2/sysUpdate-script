@@ -13,18 +13,19 @@ The `sysUpdate` Bash script was developed to simplify the process of updating Li
 ## Usage
 Execute the script with: `bash ./sysUpdate.sh`
 Optional parameters:
-- `-h` or `--help`: Display help and available options.
-- `-r` or `--reboot`: Restart after completing updates.
+- `-h` or `--help`:		Display help and available options.
+- `-r` or `--reboot`: 	Restart after completing updates.
 - `-s` or `--shutdown`: Shutdown after completing updates.
-- `-c` or `--clear`: Clear the terminal after completing the update.
-- `--system-upgrade`: Only for Ubuntu system upgrades (e.g., from 20.04 LTS to 22.04 LTS).
+- `-c` or `--clear`: 	Clear the terminal after completing the update.
+- `-e` or `--exit`: 	close the terminal after completing the updates.
+- `--system-upgrade`: 	Only for Ubuntu system upgrades (e.g., from 20.04 LTS to 22.04 LTS).
 
 ## Note
 This script requires the availability of the `lsb_release` command for operating system detection and may require additional packages depending on the distribution.
 
 ## Script Information
-- **Script Name:** `sysUpdate`
-- **Script Version:** `v2.0.0`
-- **Creator:** [GitHub/R2Turuk2](https://github.com/R2Turuk2)
+- **Script Name:** 			`sysUpdate`
+- **Script Version:** 		`v2.0.0`
+- **Creator:** 				[GitHub/R2Turuk2](https://github.com/R2Turuk2)
 - **Create Date and Time:** 2024.03.09 17:00:00
-- **Permissions:** `chmod +x sysUpdate.sh`
+- **Permissions:** 			`chmod +x sysUpdate.sh`
