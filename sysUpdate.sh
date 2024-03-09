@@ -103,19 +103,18 @@ esac  # end of compatibility check between OS and script
 
     
 # Display the operating system in the terminal or interrupt the script
-if [ -n "$distribution" ] && [ -n "$release" ]; then
-	echo "----------------------------------------------------------------"
-    echo "-> Your operating system is $distribution $release."
-	echo "----------------------------------------------------------------"
-else
-    echo "-> Your Linux distribution could not be identified."
+if [ ! -n "$distribution" ] && [ ! -n "$release" ]; then
+	echo "-> Your Linux distribution could not be identified."
     exit 101
 fi
 
 # Help options
 #-------------------------------------------------------------------------------------------------------------------------------------------
 if [ "$1" == "-h" ]; then
-    echo "#    Your operating system is $systemCompatible. This script is compatible with Ubuntu, Debian, CentOS, Elementary OS, Fedora, Kali Linux, Mageia, Mint, openSUSE, RHEL."
+    echo "----------------------------------------------------------------"
+    echo "-> Your operating system is $distribution $release."
+	echo "----------------------------------------------------------------"
+	echo "#    Your operating system is $systemCompatible. This script is compatible with Ubuntu, Debian, CentOS, Elementary OS, Fedora, Kali Linux, Mageia, Mint, openSUSE, RHEL."
     echo "->   -h | --help              for help"
    #echo "--- essential parameters ----------------------------------------------------------------------"
     echo "--- optional parameter ------------------------------------------------------------------------"
