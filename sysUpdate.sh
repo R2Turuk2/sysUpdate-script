@@ -110,7 +110,7 @@ fi
 
 # Help options
 #-------------------------------------------------------------------------------------------------------------------------------------------
-if [ "$1" == "-h" ]; then
+if [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then
     echo "----------------------------------------------------------------"
     echo "->   Your operating system is $distribution $release."
 	echo "     Your operating system is $systemCompatible. This script is compatible with"
