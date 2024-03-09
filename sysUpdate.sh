@@ -126,7 +126,8 @@ if [ "$1" == "-h" ]; then
     # for distribution-specific information
     case $distribution_lowercase in
         ubuntu)
-            echo "->        --system-upgrade    only for Ubuntu system upgrade | use only for system upgrade (for example, from 20.04 LTS to 22.04 LTS)"
+            echo "->        --system-upgrade    only for Ubuntu system upgrade"
+			echo "                              use only for system upgrade (for example, from 20.04 LTS to 22.04 LTS)"
             ;;
         *)
             ;;
