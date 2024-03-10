@@ -24,7 +24,7 @@ This script requires the availability of the `lsb_release` command for operating
 
 ## Script Information
 - **Script Name:** 			`sysUpdate`
-- **Script Version:** 		`v2.0.0`
+- **Script Version:** 		`v2.1`
 - **Creator:** 				[GitHub/R2Turuk2](https://github.com/R2Turuk2)
 - **Create Date and Time:** 2024.03.09 17:00:00
 - **Permissions:** 			`chmod +x sysUpdate.sh`
