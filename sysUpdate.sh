@@ -113,7 +113,8 @@ fi
 if [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then
     echo "----------------------------------------------------------------"
     echo "->   Your operating system is $distribution $release and therefore $systemCompatible."
-	echo "     This script runs on Ubuntu, Debian, CentOS, Elementary OS, Fedora, Kali Linux, Mageia, Mint, openSUSE, RHEL."
+	echo "     This script runs on Ubuntu, Debian, CentOS, Elementary OS,"
+	echo "     Fedora, Kali Linux, Mageia, Mint, openSUSE, RHEL."
     echo ""
 	#echo "---- essential parameters ---------------------------------------------------------------------"
     echo "---- optional parameter -----------------------------------------------------------------------"
