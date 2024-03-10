@@ -90,9 +90,9 @@ while ! command -v lsb_release &> /dev/null; do
         exit 100
     fi
 	
-	if [ "$lsbAutoInstall" != Y ] && [ "$lsbAutoInstall" != Y ]; then
-		exit 101
-	fi
+    if [ "$lsbAutoInstall" != Y ] && [ "$lsbAutoInstall" != Y ]; then
+        exit 101
+    fi
 done
 
 
