@@ -1,5 +1,7 @@
 # sysUpdate Script
 
+This script has been tested and verified on Ubuntu and Debian.
+
 ## Overview
 The `sysUpdate` Bash script was developed to simplify the process of updating Linux systems. It supports various distributions, including Ubuntu, Debian, Fedora, openSUSE, CentOS, Kali Linux, and more. The script automatically detects the operating system and its version, then performs the necessary update steps.
 
