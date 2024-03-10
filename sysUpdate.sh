@@ -3,7 +3,7 @@
 # scriptname:            sysUpdate
 # scriptversion:         v2.1
 # creator:               GitHub/R2Turuk2
-# create datetime:       2024.03.09 17:00:00
+# create datetime:       2024.03.10 12:00:00
 # permissions:           chmod +x sysUpdate.sh
 
 # script description:    This Bash script is designed to simplify the process of updating
