@@ -58,28 +58,28 @@ while ! command -v lsb_release &> /dev/null; do
     # Check the distribution and suggest manual installation commands
     if command -v apt &> /dev/null; then
         echo "-> Try installing 'lsb-release' with the following command:"
-        read -p "   sudo apt install lsb-release  -  try automatic installing? [Y/n] " lsbAutoInstall
+        read -p "     sudo apt install lsb-release  -  try automatic installing? [Y/n] " lsbAutoInstall
         if [ "$lsbAutoInstall" == Y ] || [ "$lsbAutoInstall" == y ]; then
             sudo apt install lsb-release
         fi
     
     elif command -v yum &> /dev/null; then
         echo "-> Try installing 'lsb-release' with the following command:"
-        read -p "   sudo yum install redhat-lsb-core  -  try automatic installing? [Y/n] " lsbAutoInstall
+        read -p "     sudo yum install redhat-lsb-core  -  try automatic installing? [Y/n] " lsbAutoInstall
         if [ "$lsbAutoInstall" == Y ] || [ "$lsbAutoInstall" == y ]; then
             sudo yum install redhat-lsb-core
         fi
         
     elif command -v dnf &> /dev/null; then
         echo "-> Try installing 'lsb-release' with the following command:"
-        read -p "   sudo dnf install redhat-lsb-core  -  try automatic installing? [Y/n] " lsbAutoInstall
+        read -p "     sudo dnf install redhat-lsb-core  -  try automatic installing? [Y/n] " lsbAutoInstall
         if [ "$lsbAutoInstall" == Y ] || [ "$lsbAutoInstall" == y ]; then
             sudo dnf install redhat-lsb-core
         fi
         
     elif command -v zypper &> /dev/null; then
         echo "-> Try installing 'lsb-release' with the following command:"
-        read -p "   sudo zypper install lsb-release  -  try automatic installing? [Y/n] " lsbAutoInstall
+        read -p "     sudo zypper install lsb-release  -  try automatic installing? [Y/n] " lsbAutoInstall
         if [ "$lsbAutoInstall" == Y ] || [ "$lsbAutoInstall" == y ]; then
             sudo zypper install lsb-release
         fi
