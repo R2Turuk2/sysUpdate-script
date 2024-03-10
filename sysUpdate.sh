@@ -1,7 +1,7 @@
 #!/bin/bash
 #header----------------------------------------------------------------------------------------
 # scriptname:            sysUpdate
-# scriptversion:         v2.0.0
+# scriptversion:         v2.1
 # creator:               GitHub/R2Turuk2
 # create datetime:       2024.03.09 17:00:00
 # permissions:           chmod +x sysUpdate.sh
@@ -58,22 +58,40 @@ if ! command -v lsb_release &> /dev/null; then
     # Check the distribution and suggest manual installation commands
     if command -v apt &> /dev/null; then
         echo "Try installing 'lsb-release' with the following command:"
-        echo "  sudo apt install lsb-release"
-    elif command -v yum &> /dev/null; then
+        read -p "  sudo apt install lsb-release  -  try automatic installing? [Y/n] " lsbAutoInstall
+		if [ "$lsbAutoInstall" == Y ] || [ "$lsbAutoInstall" == Y ]; then
+			sudo apt install lsb-release
+		fi
+    
+	elif command -v yum &> /dev/null; then
         echo "Try installing 'lsb-release' with the following command:"
-        echo "  sudo yum install redhat-lsb-core"
-    elif command -v dnf &> /dev/null; then
+        read -p "  sudo yum install redhat-lsb-core  -  try automatic installing? [Y/n] " lsbAutoInstall
+		if [ "$lsbAutoInstall" == Y ] || [ "$lsbAutoInstall" == Y ]; then
+			sudo sudo yum install redhat-lsb-core
+		fi
+		
+	elif command -v dnf &> /dev/null; then
         echo "Try installing 'lsb-release' with the following command:"
-        echo "  sudo dnf install redhat-lsb-core"
-    elif command -v zypper &> /dev/null; then
+        read -p "  sudo dnf install redhat-lsb-core  -  try automatic installing? [Y/n] " lsbAutoInstall
+		if [ "$lsbAutoInstall" == Y ] || [ "$lsbAutoInstall" == Y ]; then
+			sudo sudo dnf install redhat-lsb-core
+		fi
+		
+	elif command -v zypper &> /dev/null; then
         echo "Try installing 'lsb-release' with the following command:"
-        echo "  sudo zypper install lsb-release"
-    else
+        read -p "  sudo zypper install lsb-release  -  try automatic installing? [Y/n] " lsbAutoInstall
+		if [ "$lsbAutoInstall" == Y ] || [ "$lsbAutoInstall" == Y ]; then
+			sudo sudo zypper install lsb-release
+		fi
+		
+	else
         echo "Unable to determine the package manager for automatic installation."
         echo "Please manually install 'lsb-release' using the appropriate package manager for your system."
     fi
-
-    exit 1
+	
+	if [ "$lsbAutoInstall" != Y ] && [ "$lsbAutoInstall" != Y ]; then
+		exit 100
+	fi
 fi
 
 # Check if the "snap" command is available in the system's PATH
@@ -97,7 +115,7 @@ case $distribution_lowercase in
         ;;
     *)
         systemCompatible="incompatible"
-        exit 100
+        exit 101
         ;;
 esac  # end of compatibility check between OS and script
 
@@ -105,7 +123,7 @@ esac  # end of compatibility check between OS and script
 # Display the operating system in the terminal or interrupt the script
 if [ ! -n "$distribution" ] && [ ! -n "$release" ]; then
 	echo "-> Your Linux distribution could not be identified."
-    exit 101
+    exit 102
 fi
 
 # Help options
@@ -133,7 +151,7 @@ if [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then
             ;;
     esac # end of compatibility check between OS and script
     
-    exit 102
+    exit 103
 fi
 
 # setting parameters in the desired order
