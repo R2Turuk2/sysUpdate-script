@@ -111,7 +111,7 @@ fi
 # Help options
 #-------------------------------------------------------------------------------------------------------------------------------------------
 if [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then
-    echo "----------------------------------------------------------------"
+    echo "-----------------------------------------------------------------------------------------------"
     echo "->   Your operating system is $distribution $release and therefore $systemCompatible."
 	echo "     This script runs on Ubuntu, Debian, CentOS, Elementary OS,"
 	echo "     Fedora, Kali Linux, Mageia, Mint, openSUSE, RHEL."
