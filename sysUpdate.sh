@@ -1,7 +1,7 @@
 #!/bin/bash
 #header----------------------------------------------------------------------------------------
 # scriptname:            sysUpdate
-# scriptversion:         v2.1
+# scriptversion:         v2.2
 # creator:               GitHub/R2Turuk2
 # create datetime:       2024.03.10 12:00:00
 # permissions:           chmod +x sysUpdate.sh
@@ -191,17 +191,25 @@ case $distribution_lowercase in
         echo "----------------------------------------------------------------"
         sudo apt update # Updates the package list from all defined package sources.
         
-        if [ "$sysUpgrade" = true ]; then
-            read -p "-> Was a backup made? If yes, continue? [Y/n] " sysUpgradeContinue
-            if [ "$sysUpgradeContinue" = "Y" ] || [ "$sysUpgradeContinue" = "y" ]; then  
-                echo "----------------------------------------------------------------"
-                echo "-> Your system is now being upgraded!"
-                echo "----------------------------------------------------------------"
-                sudo do-release-upgrade # Initiates the upgrade process to a new Ubuntu release if available.
-            else
-                exit 201
-            fi
-        fi
+		if [ "$sysUpgrade" = true ] && [ ! -f $HOME/.sysUpdate.do-release.beforeRestart ]; then
+			read -p "-> Was a backup made? If yes, continue? [Y/n] " sysUpgradeContinue
+			if [ "$sysUpgradeContinue" = "Y" ] || [ "$sysUpgradeContinue" = "y" ]; then  
+				echo "----------------------------------------------------------------"
+				echo "-> Your system is now being upgraded!"
+				echo "----------------------------------------------------------------"
+				while ! command -v sudo do-release-upgrade &> /dev/null; do # Initiates the upgrade process to a new Ubuntu release if available.
+					
+				
+				
+				touch $HOME/.sysUpdate.do-release.beforeRestart
+				sudo reboot
+			else
+				exit 201
+			fi
+		fi
+		if [ -f $HOME/.sysUpdate.do-release.beforeRestart ]; then
+			sudo do-release-upgrade -y # Initiates the upgrade process after reboot to a new Ubuntu release.
+		fi
 
         echo "----------------------------------------------------------------"
         echo "-> All packages are now being updated"
