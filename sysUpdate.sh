@@ -186,23 +186,39 @@ case $distribution_lowercase in
     # for Ubuntu, Mint, Elementary OS
     #-------------------------------------------------------------------------------------------------------------------------------------------
     ubuntu)
-        echo "----------------------------------------------------------------"
-        echo "-> The package list is now being updated."
-        echo "----------------------------------------------------------------"
-        sudo apt update # Updates the package list from all defined package sources.
+        if [ ! -f $HOME/.sysUpdate.do-release.beforeRestart ]; then
+			echo "----------------------------------------------------------------"
+			echo "-> The package list is now being updated."
+			echo "----------------------------------------------------------------"
+			sudo apt update # Updates the package list from all defined package sources.
         
-		if [ "$sysUpgrade" = true ] && [ ! -f $HOME/.sysUpdate.do-release.beforeRestart ]; then
-			read -p "-> Was a backup made? If yes, continue? [Y/n] " sysUpgradeContinue
-			if [ "$sysUpgradeContinue" = "Y" ] || [ "$sysUpgradeContinue" = "y" ]; then  
-				echo "----------------------------------------------------------------"
-				echo "-> Your system is now being upgraded!"
-				echo "----------------------------------------------------------------"
-				while ! command -v sudo do-release-upgrade &> /dev/null; do # Initiates the upgrade process to a new Ubuntu release if available.
-					
+			if [ "$sysUpgrade" = true ]; then
+				read -p "-> For system upgrade: Was a backup made? If yes, continue? [Y/n] " sysUpgradeContinue
+				if [ "$sysUpgradeContinue" == "Y" ] || [ "$sysUpgradeContinue" == "y" ]; then  
+					while ! command -v sudo do-release-upgrade &> /dev/null; do # Initiates the upgrade process to a new Ubuntu release if available.
+						sudo apt install update-manager-core
+					done
 				
-				
-				touch $HOME/.sysUpdate.do-release.beforeRestart
-				sudo reboot
+					read -p "-> Do you need a system reboot? [Y/n] " sysReboot
+					if [ "$sysReboot" == "Y" ] || [ "$sysReboot" == "y" ]; then 
+						echo "-> Please run this script again after the reboot. The system will reboot in 15 seconds."
+						echo "-> To cancel the countdown, press \"ctrl+\"c."
+						sleep 5
+						for ((i = 10; i >0; i--))
+						do
+							echo "$i sec until reboot."
+							sleep 1
+						done
+						touch $HOME/.sysUpdate.do-release.beforeRestart
+						sudo reboot
+					else
+						echo "----------------------------------------------------------------"
+						echo "-> Your system is now being upgraded!"
+						echo "----------------------------------------------------------------"
+						sudo do-release-upgrade
+					fi
+					break
+				fi	
 			else
 				exit 201
 			fi
