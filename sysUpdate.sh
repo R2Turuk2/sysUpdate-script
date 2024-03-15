@@ -195,11 +195,13 @@ case $distribution_lowercase in
 			if [ "$sysUpgrade" = true ]; then
 				read -p "-> For system upgrade: Was a backup made? If yes, continue? [Y/n] " sysUpgradeContinue
 				if [ "$sysUpgradeContinue" == "Y" ] || [ "$sysUpgradeContinue" == "y" ]; then  
-					while ! command -v sudo do-release-upgrade &> /dev/null; do # Initiates the upgrade process to a new Ubuntu release if available.
+					while ! command -v sudo do-release-upgrade &> /dev/null; do
 						sudo apt install update-manager-core
 					done
 				
-					read -p "-> Do you need a system reboot? [Y/n] " sysReboot
+					sudo do-release-upgrade # Initiates the upgrade process to a new Ubuntu release if available.
+					
+					read -p "-> Do you need a system reboot? [Y/n] " sysReboot 
 					if [ "$sysReboot" == "Y" ] || [ "$sysReboot" == "y" ]; then 
 						echo "-> Please run this script again after the reboot. The system will reboot in 15 seconds."
 						echo "-> To cancel the countdown, press \"ctrl+\"c."
