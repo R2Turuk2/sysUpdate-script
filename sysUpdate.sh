@@ -186,7 +186,7 @@ case $distribution_lowercase in
     # for Ubuntu, Mint, Elementary OS
     #-------------------------------------------------------------------------------------------------------------------------------------------
     ubuntu)
-		if [ -f $HOME/.sysUpdate.do-release.beforeRestart ]; then
+		if [ ! -f $HOME/.sysUpdate.do-release.beforeRestart ]; then
 			echo "----------------------------------------------------------------"
 			echo "-> The package list is now being updated."
 			echo "----------------------------------------------------------------"
