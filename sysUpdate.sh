@@ -186,7 +186,7 @@ case $distribution_lowercase in
     # for Ubuntu, Mint, Elementary OS
     #-------------------------------------------------------------------------------------------------------------------------------------------
     ubuntu)
-		if [ ! -f $HOME/.sysUpdate.do-release.beforeRestart ] && [ ! -f $HOME/.sysUpdate.after-release ]; then
+		if [ ! -f $HOME/.sysUpdate.do-release.beforeRestart ]; then
 			echo "----------------------------------------------------------------"
 			echo "-> The package list is now being updated."
 			echo "----------------------------------------------------------------"
@@ -225,40 +225,22 @@ case $distribution_lowercase in
 						sudo apt install update-manager-core
 					done
 					
-					read -p "-> Choose how to proceed: 1) continue system upgrade 2) reboot 3) cancel the script" proceedArg
-					case $proceedArg in
-						1) 
-							sudo do-release-upgrade # Initiates the upgrade process to a new Ubuntu release if available.
-							
-							echo "-> Please run this script again after the reboot. The system will reboot in 15 seconds."
-							echo "-> To cancel the countdown, press \"ctrl+\"c."
-							sleep 5
-							for ((i = 10; i >0; i--))
-							do
-								echo "$i sec until reboot."
-								sleep 1
-							done
-							touch $HOME/.sysUpdate.do-release.beforeRestart		
-							sudo reboot
-							;;
-						2) 
-							echo "-> Please run this script again after the reboot. The system will reboot in 15 seconds."
-							echo "-> To cancel the countdown, press \"ctrl+\"c."
-							sleep 5
-							for ((i = 10; i >0; i--))
-							do
-								echo "$i sec until reboot."
-								sleep 1
-							done
-							touch $HOME/.sysUpdate.do-release.beforeRestart		
-							sudo reboot
-							;;
-						3) 
-							exit 103
-							;;
-						*)
-							;;      
-					esac	
+					sudo do-release-upgrade # Initiates the upgrade process to a new Ubuntu release if available.
+					read -p "-> Do you need a system reboot? [Y/n] " sysReboot 
+					if [ "$sysReboot" == "Y" ] || [ "$sysReboot" == "y" ]; then 
+						echo "-> Please run this script again after the reboot. The system will reboot in 15 seconds."
+						echo "-> To cancel the countdown, press \"ctrl+\"c."
+						sleep 5
+						for ((i = 10; i >0; i--))
+						do
+							echo "$i sec until reboot."
+							sleep 1
+						done
+						touch $HOME/.sysUpdate.do-release.beforeRestart
+						sudo reboot
+					else
+						exit 200
+					fi
 				fi	
 			else
 				exit 201
