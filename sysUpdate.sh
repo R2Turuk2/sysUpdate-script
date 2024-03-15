@@ -217,7 +217,6 @@ case $distribution_lowercase in
 						echo "----------------------------------------------------------------"
 						sudo do-release-upgrade
 					fi
-					break
 				fi	
 			else
 				exit 201
