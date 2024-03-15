@@ -186,11 +186,37 @@ case $distribution_lowercase in
     # for Ubuntu, Mint, Elementary OS
     #-------------------------------------------------------------------------------------------------------------------------------------------
     ubuntu)
-        if [ ! -f $HOME/.sysUpdate.do-release.beforeRestart ]; then
+		if [ -f $HOME/.sysUpdate.do-release.beforeRestart ]; then
 			echo "----------------------------------------------------------------"
 			echo "-> The package list is now being updated."
 			echo "----------------------------------------------------------------"
 			sudo apt update # Updates the package list from all defined package sources.
+        
+			echo "----------------------------------------------------------------"
+			echo "-> All packages are now being updated"
+			echo "----------------------------------------------------------------"
+			sudo apt upgrade -y # Upgrades all installed packages to the latest versions.
+        
+			echo "----------------------------------------------------------------"
+			echo "-> System packages and dependencies are now being updated"
+			echo "----------------------------------------------------------------"
+			sudo apt dist-upgrade -y # Upgrades the system, including system packages and dependencies.
+    
+			echo "----------------------------------------------------------------"
+			echo "-> Unnecessary dependencies are now being removed"
+			echo "----------------------------------------------------------------"
+			sudo apt autoremove -y # Removes unnecessary dependencies and no longer needed packages.
+
+			if $snapInstall; then 
+				echo "----------------------------------------------------------------"
+				echo "-> Snap packages are now being updated"
+				echo "----------------------------------------------------------------"
+				sudo snap refresh # Updates Snap packages, if installed.
+			fi
+
+			echo "----------------------------------------------------------------"
+			echo "-> Your system should now be up to date."
+			echo "----------------------------------------------------------------"
         
 			if [ "$sysUpgrade" = true ]; then
 				read -p "-> For system upgrade: Was a backup made? If yes, continue? [Y/n] " sysUpgradeContinue
@@ -228,32 +254,6 @@ case $distribution_lowercase in
 			sudo do-release-upgrade -y # Initiates the upgrade process after reboot to a new Ubuntu release.
 		fi
 
-        echo "----------------------------------------------------------------"
-        echo "-> All packages are now being updated"
-        echo "----------------------------------------------------------------"
-        sudo apt upgrade -y # Upgrades all installed packages to the latest versions.
-        
-        echo "----------------------------------------------------------------"
-        echo "-> System packages and dependencies are now being updated"
-        echo "----------------------------------------------------------------"
-        sudo apt dist-upgrade -y # Upgrades the system, including system packages and dependencies.
-    
-        echo "----------------------------------------------------------------"
-        echo "-> Unnecessary dependencies are now being removed"
-        echo "----------------------------------------------------------------"
-        sudo apt autoremove -y # Removes unnecessary dependencies and no longer needed packages.
-
-        if $snapInstall; then 
-			echo "----------------------------------------------------------------"
-			echo "-> Snap packages are now being updated"
-			echo "----------------------------------------------------------------"
-			sudo snap refresh # Updates Snap packages, if installed.
-		fi
-
-        echo "----------------------------------------------------------------"
-        echo "-> Your system should now be up to date."
-        echo "----------------------------------------------------------------"
-        
         ;; # end
     #-------------------------------------------------------------------------------------------------------------------------------------------
     
