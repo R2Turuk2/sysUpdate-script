@@ -1,7 +1,7 @@
 #!/bin/bash
 #header----------------------------------------------------------------------------------------
 # scriptname:            sysUpdate
-# scriptversion:         v2.1
+# scriptversion:         v2.2
 # creator:               GitHub/R2Turuk2
 # create datetime:       2024.03.10 12:00:00
 # permissions:           chmod +x sysUpdate.sh
@@ -186,49 +186,71 @@ case $distribution_lowercase in
     # for Ubuntu, Mint, Elementary OS
     #-------------------------------------------------------------------------------------------------------------------------------------------
     ubuntu)
-        echo "----------------------------------------------------------------"
-        echo "-> The package list is now being updated."
-        echo "----------------------------------------------------------------"
-        sudo apt update # Updates the package list from all defined package sources.
+		if [ ! -f $HOME/.sysUpdate.do-release.beforeRestart ]; then
+			echo "----------------------------------------------------------------"
+			echo "-> The package list is now being updated."
+			echo "----------------------------------------------------------------"
+			sudo apt update # Updates the package list from all defined package sources.
         
-        if [ "$sysUpgrade" = true ]; then
-            read -p "-> Was a backup made? If yes, continue? [Y/n] " sysUpgradeContinue
-            if [ "$sysUpgradeContinue" = "Y" ] || [ "$sysUpgradeContinue" = "y" ]; then  
-                echo "----------------------------------------------------------------"
-                echo "-> Your system is now being upgraded!"
-                echo "----------------------------------------------------------------"
-                sudo do-release-upgrade # Initiates the upgrade process to a new Ubuntu release if available.
-            else
-                exit 201
-            fi
-        fi
-
-        echo "----------------------------------------------------------------"
-        echo "-> All packages are now being updated"
-        echo "----------------------------------------------------------------"
-        sudo apt upgrade -y # Upgrades all installed packages to the latest versions.
+			echo "----------------------------------------------------------------"
+			echo "-> All packages are now being updated"
+			echo "----------------------------------------------------------------"
+			sudo apt upgrade -y # Upgrades all installed packages to the latest versions.
         
-        echo "----------------------------------------------------------------"
-        echo "-> System packages and dependencies are now being updated"
-        echo "----------------------------------------------------------------"
-        sudo apt dist-upgrade -y # Upgrades the system, including system packages and dependencies.
+			echo "----------------------------------------------------------------"
+			echo "-> System packages and dependencies are now being updated"
+			echo "----------------------------------------------------------------"
+			sudo apt dist-upgrade -y # Upgrades the system, including system packages and dependencies.
     
-        echo "----------------------------------------------------------------"
-        echo "-> Unnecessary dependencies are now being removed"
-        echo "----------------------------------------------------------------"
-        sudo apt autoremove -y # Removes unnecessary dependencies and no longer needed packages.
+			echo "----------------------------------------------------------------"
+			echo "-> Unnecessary dependencies are now being removed"
+			echo "----------------------------------------------------------------"
+			sudo apt autoremove -y # Removes unnecessary dependencies and no longer needed packages.
 
-        if $snapInstall; then 
+			if $snapInstall; then 
+				echo "----------------------------------------------------------------"
+				echo "-> Snap packages are now being updated"
+				echo "----------------------------------------------------------------"
+				sudo snap refresh # Updates Snap packages, if installed.
+			fi
+
 			echo "----------------------------------------------------------------"
-			echo "-> Snap packages are now being updated"
+			echo "-> Your system should now be up to date."
 			echo "----------------------------------------------------------------"
-			sudo snap refresh # Updates Snap packages, if installed.
+        
+			if [ "$sysUpgrade" = true ]; then
+				read -p "-> For system upgrade: Was a backup made? If yes, continue? [Y/n] " sysUpgradeContinue
+				if [ "$sysUpgradeContinue" == "Y" ] || [ "$sysUpgradeContinue" == "y" ]; then  
+					while ! command -v sudo do-release-upgrade &> /dev/null; do
+						sudo apt install update-manager-core
+					done
+					
+					sudo do-release-upgrade # Initiates the upgrade process to a new Ubuntu release if available.
+					read -p "-> Do you need a system reboot? [Y/n] " sysReboot 
+					if [ "$sysReboot" == "Y" ] || [ "$sysReboot" == "y" ]; then 
+						echo "-> Please run this script again after the reboot. The system will reboot in 15 seconds."
+						echo "-> To cancel the countdown, press \"ctrl+\"c."
+						sleep 5
+						for ((i = 10; i >0; i--))
+						do
+							echo "$i sec until reboot."
+							sleep 1
+						done
+						touch $HOME/.sysUpdate.do-release.beforeRestart
+						sudo reboot
+					else
+						exit 200
+					fi
+				fi	
+			else
+				exit 201
+			fi
+		fi
+		if [ -f $HOME/.sysUpdate.do-release.beforeRestart ]; then
+			rm $HOME/.sysUpdate.do-release.beforeRestart
+			sudo do-release-upgrade -y # Initiates the upgrade process after reboot to a new Ubuntu release.
 		fi
 
-        echo "----------------------------------------------------------------"
-        echo "-> Your system should now be up to date."
-        echo "----------------------------------------------------------------"
-        
         ;; # end
     #-------------------------------------------------------------------------------------------------------------------------------------------
     
