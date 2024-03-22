@@ -247,6 +247,7 @@ case $distribution_lowercase in
 			fi
 		fi
 		if [ -f $HOME/.sysUpdate.do-release.beforeRestart ]; then
+			rm $HOME/.sysUpdate.do-release.beforeRestart
 			sudo do-release-upgrade -y # Initiates the upgrade process after reboot to a new Ubuntu release.
 		fi
 
