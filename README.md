@@ -30,4 +30,4 @@ This script requires the availability of the `lsb_release` command for operating
 - **Creator:** 				[GitHub/R2Turuk2](https://github.com/R2Turuk2)
 - **Create Date and Time:** 2024.03.09 17:00:00
 - **Permissions:** 			`chmod +x sysUpdate.sh`
-- **Checksum:** 			f599a794331eb8624a6ff0f0eba15091e7a575f65f455666d51e70bd6d011130  sysUpdate.sh`
+- **Checksum:** 			`f599a794331eb8624a6ff0f0eba15091e7a575f65f455666d51e70bd6d011130  sysUpdate.sh`
