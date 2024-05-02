@@ -1,7 +1,7 @@
 #!/bin/bash
 #header----------------------------------------------------------------------------------------
 # scriptname:            sysUpdate
-# scriptversion:         v2.2
+# scriptversion:         v2.2.1
 # creator:               GitHub/R2Turuk2
 # create datetime:       2024.03.10 12:00:00
 # permissions:           chmod +x sysUpdate.sh
@@ -260,12 +260,12 @@ case $distribution_lowercase in
         echo "----------------------------------------------------------------"
         echo "-> The package list is now being updated."
         echo "----------------------------------------------------------------"
-        sudo apt update # Updates the package list from all defined package sources.
+        sudo apt-get update # Updates the package list from all defined package sources.
         
         echo "----------------------------------------------------------------"
         echo "-> All packages are now being updated"
         echo "----------------------------------------------------------------"
-        sudo apt upgrade -y # Upgrades all installed packages to the latest versions.
+        sudo apt-get upgrade -y # Upgrades all installed packages to the latest versions.
         
         echo "----------------------------------------------------------------"
         echo "-> System packages and dependencies are now being updated"

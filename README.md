@@ -25,9 +25,10 @@ Optional parameters:
 This script requires the availability of the `lsb_release` command for operating system detection and may require additional packages depending on the distribution.
 
 ## Script Information
-- **Script Name:** 			`sysUpdate`
-- **Script Version:** 		`v2.2`
-- **Creator:** 				[GitHub/R2Turuk2](https://github.com/R2Turuk2)
-- **Create Date and Time:** 2024.03.09 17:00:00
-- **Permissions:** 			`chmod +x sysUpdate.sh`
-- **Checksum:** 			`f599a794331eb8624a6ff0f0eba15091e7a575f65f455666d51e70bd6d011130`
+- **Script Name:** 		`sysUpdate`
+- **Script Version:** 		`v2.2.1`
+- **Creator:** 			[GitHub/R2Turuk2](https://github.com/R2Turuk2)
+- **Create Date and Time:** 	2024.03.09 17:00
+- **Update Date and Time:**	2024.05.02 14:40
+- **Permissions:** 		`chmod +x sysUpdate.sh`
+- **Checksum:** 		`8d37ab2f61f4f6d21136e58226ed96317218940de4e60f28a0357987598a1c62`
