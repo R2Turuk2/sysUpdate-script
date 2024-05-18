@@ -190,22 +190,22 @@ case $distribution_lowercase in
 			echo "----------------------------------------------------------------"
 			echo "-> The package list is now being updated."
 			echo "----------------------------------------------------------------"
-			sudo apt update # Updates the package list from all defined package sources.
+			sudo apt-get update # Updates the package list from all defined package sources.
         
 			echo "----------------------------------------------------------------"
 			echo "-> All packages are now being updated"
 			echo "----------------------------------------------------------------"
-			sudo apt upgrade -y # Upgrades all installed packages to the latest versions.
+			sudo apt-get upgrade -y # Upgrades all installed packages to the latest versions.
         
 			echo "----------------------------------------------------------------"
 			echo "-> System packages and dependencies are now being updated"
 			echo "----------------------------------------------------------------"
-			sudo apt dist-upgrade -y # Upgrades the system, including system packages and dependencies.
+			sudo apt-get dist-upgrade -y # Upgrades the system, including system packages and dependencies.
     
 			echo "----------------------------------------------------------------"
 			echo "-> Unnecessary dependencies are now being removed"
 			echo "----------------------------------------------------------------"
-			sudo apt autoremove -y # Removes unnecessary dependencies and no longer needed packages.
+			sudo apt-get autoremove -y # Removes unnecessary dependencies and no longer needed packages.
 
 			if $snapInstall; then 
 				echo "----------------------------------------------------------------"
