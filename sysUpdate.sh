@@ -1,7 +1,7 @@
 #!/bin/bash
 #header----------------------------------------------------------------------------------------
 # scriptname:            sysUpdate
-# scriptversion:         v2.2.1
+# scriptversion:         v2.2.2
 # creator:               GitHub/R2Turuk2
 # create datetime:       2024.03.10 12:00:00
 # permissions:           chmod +x sysUpdate.sh

@@ -31,4 +31,4 @@ This script requires the availability of the `lsb_release` command for operating
 - **Create Date and Time:** 	2024.03.09 17:00
 - **Update Date and Time:**	2024.05.02 14:40
 - **Permissions:** 		`chmod +x sysUpdate.sh`
-- **Checksum:** 		`8d37ab2f61f4f6d21136e58226ed96317218940de4e60f28a0357987598a1c62`
+- **Checksum:** 		`80e9467f71f1ed6e0cfcf88eaa48e39fcd9fc7bd4a407100ae456a55dddb9edf`
